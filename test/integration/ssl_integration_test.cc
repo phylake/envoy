@@ -348,14 +348,19 @@ public:
       ssl_transport_socket.set_name("tls");
       MessageUtil::jsonConvert(filter_chain->tls_context(), *ssl_transport_socket.mutable_config());
       // Configure outer tap transport socket.
+      // fixfix any matcher.
       auto* transport_socket = filter_chain->mutable_transport_socket();
       transport_socket->set_name("envoy.transport_sockets.tap");
       envoy::config::transport_socket::tap::v2alpha::Tap tap_config;
-      auto* file_sink = tap_config.mutable_file_sink();
+      auto* file_sink = tap_config.mutable_common_config()
+                            ->mutable_static_config()
+                            ->mutable_output_config()
+                            ->mutable_sinks()
+                            ->Add()
+                            ->mutable_file();
       file_sink->set_path_prefix(path_prefix_);
-      file_sink->set_format(
-          text_format_ ? envoy::config::transport_socket::tap::v2alpha::FileSink::PROTO_TEXT
-                       : envoy::config::transport_socket::tap::v2alpha::FileSink::PROTO_BINARY);
+      file_sink->set_format(text_format_ ? envoy::service::tap::v2alpha::FileSink::PROTO_TEXT
+                                         : envoy::service::tap::v2alpha::FileSink::PROTO_BINARY);
       tap_config.mutable_transport_socket()->MergeFrom(ssl_transport_socket);
       MessageUtil::jsonConvert(tap_config, *transport_socket->mutable_config());
       // Nuke TLS context from legacy location.

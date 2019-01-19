@@ -1,11 +1,13 @@
 #pragma once
 
-#include <fstream>
+// fixfix#include <fstream>
 
-#include "envoy/config/transport_socket/tap/v2alpha/tap.pb.h"
+// fixfix#include "envoy/config/transport_socket/tap/v2alpha/tap.pb.h"
 #include "envoy/data/tap/v2alpha/transport.pb.h"
 #include "envoy/event/timer.h"
 #include "envoy/network/transport_socket.h"
+
+#include "extensions/transport_sockets/tap/tap_config.h"
 
 namespace Envoy {
 namespace Extensions {
@@ -14,9 +16,8 @@ namespace Tap {
 
 class TapSocket : public Network::TransportSocket {
 public:
-  TapSocket(const std::string& path_prefix,
-            envoy::config::transport_socket::tap::v2alpha::FileSink::Format format,
-            Network::TransportSocketPtr&& transport_socket, Event::TimeSystem& time_system);
+  TapSocket(PerSocketTapperPtr&& tapper, Network::TransportSocketPtr&& transport_socket,
+            Event::TimeSystem& time_system);
 
   // Network::TransportSocket
   void setTransportSocketCallbacks(Network::TransportSocketCallbacks& callbacks) override;
@@ -29,8 +30,9 @@ public:
   const Ssl::Connection* ssl() const override;
 
 private:
-  const std::string& path_prefix_;
-  const envoy::config::transport_socket::tap::v2alpha::FileSink::Format format_;
+  // fixfixconst std::string& path_prefix_;
+  // fixfixconst envoy::config::transport_socket::tap::v2alpha::FileSink::Format format_;
+  PerSocketTapperPtr tapper_;
   // TODO(htuch): Buffering the entire trace until socket close won't scale to
   // long lived connections or large transfers. We could emit multiple tap
   // files with bounded size, with identical connection ID to allow later
@@ -43,8 +45,7 @@ private:
 
 class TapSocketFactory : public Network::TransportSocketFactory {
 public:
-  TapSocketFactory(const std::string& path_prefix,
-                   envoy::config::transport_socket::tap::v2alpha::FileSink::Format format,
+  TapSocketFactory(SocketTapConfigFactoryPtr&& config_factory,
                    Network::TransportSocketFactoryPtr&& transport_socket_factory,
                    Event::TimeSystem& time_system);
 
@@ -54,8 +55,9 @@ public:
   bool implementsSecureTransport() const override;
 
 private:
-  const std::string path_prefix_;
-  const envoy::config::transport_socket::tap::v2alpha::FileSink::Format format_;
+  // fixfixconst std::string path_prefix_;
+  // fixfixconst envoy::config::transport_socket::tap::v2alpha::FileSink::Format format_;
+  SocketTapConfigFactoryPtr config_factory_;
   Network::TransportSocketFactoryPtr transport_socket_factory_;
   Event::TimeSystem& time_system_;
 };

@@ -27,9 +27,9 @@ Network::TransportSocketFactoryPtr UpstreamTapSocketConfigFactory::createTranspo
       outer_config.transport_socket(), inner_config_factory);
   auto inner_transport_factory =
       inner_config_factory.createTransportSocketFactory(*inner_factory_config, context);
-  return std::make_unique<TapSocketFactory>(
-      outer_config.file_sink().path_prefix(), outer_config.file_sink().format(),
-      std::move(inner_transport_factory), context.dispatcher().timeSystem());
+  return std::make_unique<TapSocketFactory>(nullptr, // fixfix
+                                            std::move(inner_transport_factory),
+                                            context.dispatcher().timeSystem());
 }
 
 Network::TransportSocketFactoryPtr DownstreamTapSocketConfigFactory::createTransportSocketFactory(
@@ -45,9 +45,9 @@ Network::TransportSocketFactoryPtr DownstreamTapSocketConfigFactory::createTrans
       outer_config.transport_socket(), inner_config_factory);
   auto inner_transport_factory = inner_config_factory.createTransportSocketFactory(
       *inner_factory_config, context, server_names);
-  return std::make_unique<TapSocketFactory>(
-      outer_config.file_sink().path_prefix(), outer_config.file_sink().format(),
-      std::move(inner_transport_factory), context.dispatcher().timeSystem());
+  return std::make_unique<TapSocketFactory>(nullptr, // fixfix
+                                            std::move(inner_transport_factory),
+                                            context.dispatcher().timeSystem());
 }
 
 ProtobufTypes::MessagePtr TapSocketConfigFactory::createEmptyConfigProto() {

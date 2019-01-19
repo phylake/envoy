@@ -11,17 +11,25 @@ load(
 envoy_package()
 
 envoy_cc_library(
+    name = "tap_config_interface",
+    hdrs = ["tap_config.h"],
+    deps = [
+        "//source/extensions/common/tap:tap_interface",
+    ],
+)
+
+envoy_cc_library(
     name = "tap_lib",
     srcs = ["tap.cc"],
     hdrs = ["tap.h"],
     deps = [
+        ":tap_config_interface",
         "//include/envoy/event:timer_interface",
         "//include/envoy/network:transport_socket_interface",
         "//source/common/buffer:buffer_lib",
         "//source/common/common:assert_lib",
         "//source/common/network:utility_lib",
         "//source/common/protobuf",
-        "@envoy_api//envoy/config/transport_socket/tap/v2alpha:tap_cc",
         "@envoy_api//envoy/data/tap/v2alpha:transport_cc",
     ],
 )

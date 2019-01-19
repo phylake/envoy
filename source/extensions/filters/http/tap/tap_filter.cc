@@ -14,14 +14,15 @@ FilterConfigImpl::FilterConfigImpl(envoy::config::filter::http::tap::v2alpha::Ta
     : proto_config_(std::move(proto_config)), stats_(Filter::generateStats(stats_prefix, scope)),
       config_factory_(std::move(config_factory)), tls_slot_(tls.allocateSlot()) {
 
-  // TODO(mattklein123): Admin is the only supported config type currently.
-  ASSERT(proto_config_.has_admin_config());
+  // TODO(mattklein123): Admin is the only supported config type currently. Validated by schema.
+  // fixfix
+  ASSERT(proto_config_.common_config().has_admin_config());
 
   admin_handler_ = Extensions::Common::Tap::AdminHandler::getSingleton(admin, singleton_manager,
                                                                        main_thread_dispatcher);
-  admin_handler_->registerConfig(*this, proto_config_.admin_config().config_id());
+  admin_handler_->registerConfig(*this, proto_config_.common_config().admin_config().config_id());
   ENVOY_LOG(debug, "initializing tap filter with admin endpoint (config_id={})",
-            proto_config_.admin_config().config_id());
+            proto_config_.common_config().admin_config().config_id());
 
   tls_slot_->set([](Event::Dispatcher&) -> ThreadLocal::ThreadLocalObjectSharedPtr {
     return std::make_shared<TlsFilterConfig>();
@@ -39,8 +40,8 @@ HttpTapConfigSharedPtr FilterConfigImpl::currentConfig() {
 }
 
 const std::string& FilterConfigImpl::adminId() {
-  ASSERT(proto_config_.has_admin_config());
-  return proto_config_.admin_config().config_id();
+  ASSERT(proto_config_.common_config().has_admin_config());
+  return proto_config_.common_config().admin_config().config_id();
 }
 
 void FilterConfigImpl::clearTapConfig() {
