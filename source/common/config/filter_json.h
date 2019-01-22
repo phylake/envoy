@@ -1,6 +1,7 @@
 #pragma once
 
 #include "envoy/config/filter/http/buffer/v2/buffer.pb.h"
+#include "envoy/config/filter/http/header_size/v2/header_size.pb.h"
 #include "envoy/config/filter/http/fault/v2/fault.pb.h"
 #include "envoy/config/filter/http/health_check/v2/health_check.pb.h"
 #include "envoy/config/filter/http/lua/v2/lua.pb.h"
@@ -123,6 +124,15 @@ public:
    */
   static void translateBufferFilter(const Json::Object& json_config,
                                     envoy::config::filter::http::buffer::v2::Buffer& proto_config);
+
+  /**
+   * Translate a v1 JSON Buffer filter object to v2 envoy::config::filter::http::header_size::v2::HeaderSize.
+   * @param json_config source v1 JSON HTTP Buffer Filter object.
+   * @param proto_config destination v2
+   * envoy::config::filter::http::header_size::v2::HeaderSize.
+   */
+  static void translateHeaderSizeFilter(const Json::Object& json_config,
+                                        envoy::config::filter::http::header_size::v2::HeaderSize& proto_config);
 
   /**
    * Translate a v1 JSON Lua filter object to v2 envoy::config::filter::http::lua::v2::Lua.

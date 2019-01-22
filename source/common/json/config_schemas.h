@@ -37,6 +37,7 @@ public:
 
   // HTTP Filter Schemas
   static const std::string BUFFER_HTTP_FILTER_SCHEMA;
+  static const std::string HEADER_SIZE_HTTP_FILTER_SCHEMA;
   static const std::string FAULT_HTTP_FILTER_SCHEMA;
   static const std::string GRPC_JSON_TRANSCODER_FILTER_SCHEMA;
   static const std::string HEALTH_CHECK_HTTP_FILTER_SCHEMA;

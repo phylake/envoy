@@ -366,6 +366,14 @@ void FilterJson::translateBufferFilter(
   JSON_UTIL_SET_DURATION_SECONDS(json_config, proto_config, max_request_time);
 }
 
+void FilterJson::translateHeaderSizeFilter(
+    const Json::Object& json_config,
+    envoy::config::filter::http::header_size::v2::HeaderSize& proto_config) {
+  json_config.validateSchema(Json::Schema::HEADER_SIZE_HTTP_FILTER_SCHEMA);
+
+  JSON_UTIL_SET_INTEGER(json_config, proto_config, max_bytes);
+}
+
 void FilterJson::translateLuaFilter(const Json::Object& json_config,
                                     envoy::config::filter::http::lua::v2::Lua& proto_config) {
   json_config.validateSchema(Json::Schema::LUA_HTTP_FILTER_SCHEMA);
