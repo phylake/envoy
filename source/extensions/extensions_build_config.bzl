@@ -56,6 +56,8 @@ EXTENSIONS = {
 
     "envoy.filters.listener.tls_inspector":             "//source/extensions/filters/listener/tls_inspector:config",
 
+    "envoy.filters.listener.ip_block":                  "//source/extensions/filters/listener/ip_block:config",
+
     #
     # Network filters
     #
@@ -171,6 +173,8 @@ WINDOWS_EXTENSIONS = {
     #"envoy.filters.listener.original_dst":              "//source/extensions/filters/listener/original_dst:config",
 
     "envoy.filters.listener.tls_inspector":             "//source/extensions/filters/listener/tls_inspector:config",
+
+    "envoy.filters.listener.ip_block":                  "//source/extensions/filters/listener/ip_block:config",
 
     #
     # Network filters

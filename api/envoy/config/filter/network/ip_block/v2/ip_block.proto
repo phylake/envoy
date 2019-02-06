@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package envoy.config.filter.network.ip_block.v2;
+option go_package = "v2";
+
+import "envoy/api/v2/core/address.proto";
+
+import "validate/validate.proto";
+
+// [#protodoc-title: Ip Block]
+// Ip Block :ref:`configuration overview <config_network_filters_ip_block>`.
+
+message IpBlock {
+  repeated envoy.api.v2.core.CidrRange cidrs = 1;
+}
