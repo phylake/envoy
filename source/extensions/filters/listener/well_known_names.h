@@ -18,6 +18,8 @@ public:
   const std::string ProxyProtocol = "envoy.listener.proxy_protocol";
   // TLS Inspector listener filter
   const std::string TlsInspector = "envoy.listener.tls_inspector";
+  // IP listener filter
+  const std::string Ip = "envoy.listener.ip";
 };
 
 typedef ConstSingleton<ListenerFilterNameValues> ListenerFilterNames;
