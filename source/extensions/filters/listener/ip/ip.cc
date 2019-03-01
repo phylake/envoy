@@ -9,9 +9,15 @@ namespace Extensions {
 namespace ListenerFilters {
 namespace Ip {
 
-IpFilter::IpFilter(const envoy::config::filter::network::ip::v2::Ip& config)
-	: allow_list_(std::make_shared<Network::Address::IpList>(config.allow_cidrs()))
-	, deny_list_(std::make_shared<Network::Address::IpList>(config.deny_cidrs())) {}
+IpFilter::IpFilter(const envoy::config::filter::network::ip::v2::Ip& config) {
+  if (config.allow_cidrs_size() > 0) {
+    allow_list_ = std::make_shared<Network::Address::IpList>(config.allow_cidrs());
+  }
+
+  if (config.deny_cidrs_size() > 0) {
+    deny_list_ = std::make_shared<Network::Address::IpList>(config.deny_cidrs());
+  }
+}
 
 Network::FilterStatus IpFilter::onAccept(Network::ListenerFilterCallbacks& cb) {
   ENVOY_LOG(debug, "ip: New connection accepted");

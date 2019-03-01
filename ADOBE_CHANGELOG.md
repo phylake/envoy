@@ -16,6 +16,10 @@ v{E major}.{E minor}.{E fix}-{A major}.{A minor}.{A fix}-adobe
 
 # Log
 
+## v1.8.0-1.0.1-adobe
+
+- fixed erroneous `std::make_shared<T>`
+
 ## v1.8.0-1.0.0-adobe
 
 - max header size filter
