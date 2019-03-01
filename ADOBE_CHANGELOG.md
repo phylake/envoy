@@ -2,7 +2,7 @@
 
 We maintain a set of patches on top of upstream envoy. They need to be
 semantically versioned as well so we understand, for example, that we're
-upgrading a fix version of contour vs. a fix version of our patches.
+upgrading a fix version of envoy vs. a fix version of our patches.
 
 The scheme is quite simple. The upstream version is first, followed by a hyphen,
 followed by our version:
