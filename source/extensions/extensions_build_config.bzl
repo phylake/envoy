@@ -57,7 +57,7 @@ EXTENSIONS = {
 
     "envoy.filters.listener.tls_inspector":             "//source/extensions/filters/listener/tls_inspector:config",
 
-    "envoy.filters.listener.ip":                        "//source/extensions/filters/listener/ip:config",
+    "envoy.filters.listener.ip_allow_deny":             "//source/extensions/filters/listener/ip_allow_deny:config",
 
     #
     # Network filters

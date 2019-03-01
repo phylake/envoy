@@ -1,4 +1,4 @@
-#include "extensions/filters/listener/ip/ip.h"
+#include "extensions/filters/listener/ip_allow_deny/ip_allow_deny.h"
 
 #include "envoy/network/listen_socket.h"
 
@@ -7,9 +7,9 @@
 namespace Envoy {
 namespace Extensions {
 namespace ListenerFilters {
-namespace Ip {
+namespace IpAllowDeny {
 
-IpFilter::IpFilter(const envoy::config::filter::network::ip::v2::Ip& config) {
+IpFilter::IpFilter(const envoy::config::filter::network::ip_allow_deny::v2::IpAllowDeny& config) {
   if (config.allow_cidrs_size() > 0) {
     allow_list_ = std::make_shared<Network::Address::IpList>(config.allow_cidrs());
   }
@@ -37,7 +37,7 @@ Network::FilterStatus IpFilter::onAccept(Network::ListenerFilterCallbacks& cb) {
   return Network::FilterStatus::Continue;
 }
 
-} // namespace Ip
+} // namespace IpAllowDeny
 } // namespace ListenerFilters
 } // namespace Extensions
 } // namespace Envoy

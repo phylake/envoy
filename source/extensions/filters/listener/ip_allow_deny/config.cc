@@ -3,13 +3,13 @@
 #include "envoy/registry/registry.h"
 #include "envoy/server/filter_config.h"
 
-#include "extensions/filters/listener/ip/ip.h"
+#include "extensions/filters/listener/ip_allow_deny/ip_allow_deny.h"
 #include "extensions/filters/listener/well_known_names.h"
 
 namespace Envoy {
 namespace Extensions {
 namespace ListenerFilters {
-namespace Ip {
+namespace IpAllowDeny {
 
 /**
  * Config registration for the ip block filter. @see NamedNetworkFilterConfigFactory.
@@ -21,7 +21,7 @@ public:
   createFilterFactoryFromProto(const Protobuf::Message& msg,
                                Server::Configuration::ListenerFactoryContext&) override {
 
-    envoy::config::filter::network::ip::v2::Ip config;
+    envoy::config::filter::network::ip_allow_deny::v2::IpAllowDeny config;
     config.CopyFrom(msg);
 
     return [config](Network::ListenerFilterManager& filter_manager) -> void {
@@ -30,10 +30,10 @@ public:
   }
 
   ProtobufTypes::MessagePtr createEmptyConfigProto() override {
-    return std::make_unique<envoy::config::filter::network::ip::v2::Ip>();
+    return std::make_unique<envoy::config::filter::network::ip_allow_deny::v2::IpAllowDeny>();
   }
 
-  std::string name() override { return ListenerFilterNames::get().Ip; }
+  std::string name() override { return ListenerFilterNames::get().IpAllowDeny; }
 };
 
 /**
@@ -43,7 +43,7 @@ static Registry::RegisterFactory<IpConfigFactory,
                                  Server::Configuration::NamedListenerFilterConfigFactory>
     registered_;
 
-} // namespace Ip
+} // namespace IpAllowDeny
 } // namespace ListenerFilters
 } // namespace Extensions
 } // namespace Envoy
