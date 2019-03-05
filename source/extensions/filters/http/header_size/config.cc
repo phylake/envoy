@@ -23,8 +23,9 @@ private:
       const std::string& stats_prefix, Server::Configuration::FactoryContext& context) {
     ASSERT(proto_config.has_max_bytes());
 
-    HeaderSizeConfigSharedPtr filter_config(
-        new HeaderSizeConfig(proto_config, stats_prefix, context.scope()));
+    auto filter_config = std::make_shared<HeaderSizeConfig>(
+        proto_config, stats_prefix, context.scope());
+
     return [filter_config](Http::FilterChainFactoryCallbacks& callbacks) -> void {
       callbacks.addStreamDecoderFilter(std::make_shared<HeaderSize>(filter_config));
     };

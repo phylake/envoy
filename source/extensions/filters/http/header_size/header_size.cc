@@ -16,14 +16,14 @@ namespace HeaderSize {
 HeaderSizeSettings::HeaderSizeSettings(
     const envoy::config::filter::http::header_size::v2::HeaderSize& proto_config)
     : disabled_(false),
-      max_bytes_(static_cast<uint64_t>(proto_config.max_bytes().value())) {}
+      max_bytes_(proto_config.max_bytes().value()) {}
 
 HeaderSizeSettings::HeaderSizeSettings(
     const envoy::config::filter::http::header_size::v2::HeaderSizePerRoute& proto_config)
     : disabled_(proto_config.disabled()),
       max_bytes_(
           proto_config.has_header_size()
-              ? static_cast<uint64_t>(proto_config.header_size().max_bytes().value())
+              ? proto_config.header_size().max_bytes().value()
               : 0) {}
 
 HeaderSizeConfig::HeaderSizeConfig(

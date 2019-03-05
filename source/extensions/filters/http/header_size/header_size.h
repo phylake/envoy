@@ -31,11 +31,11 @@ public:
   HeaderSizeSettings(const envoy::config::filter::http::header_size::v2::HeaderSizePerRoute&);
 
   bool disabled() const { return disabled_; }
-  uint64_t maxBytes() const { return max_bytes_; }
+  uint32_t maxBytes() const { return max_bytes_; }
 
 private:
   bool disabled_;
-  uint64_t max_bytes_;
+  uint32_t max_bytes_;
 };
 
 /**
