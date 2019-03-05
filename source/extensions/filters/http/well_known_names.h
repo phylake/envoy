@@ -50,6 +50,8 @@ public:
   const std::string HeaderToMetadata = "envoy.filters.http.header_to_metadata";
   // Header Size filter
   const std::string HeaderSize = "envoy.filters.http.header_size";
+  // IP Allow/Deny filter
+  const std::string IpAllowDeny = "envoy.filters.http.ip_allow_deny";
 
   // Converts names from v1 to v2
   const Config::V1Converter v1_converter_;

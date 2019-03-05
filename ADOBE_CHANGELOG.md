@@ -16,6 +16,11 @@ v{E major}.{E minor}.{E fix}-{A major}.{A minor}.{A fix}-adobe
 
 # Log
 
+## v1.8.0-2.0.0-adobe
+
+- breaking change: renamed `envoy.filters.listener.ip` to `envoy.filters.listener.ip_allow_deny`
+- added L7 version of IP allow/deny filter. it returns 403s instead of closing the socket
+
 ## v1.8.0-1.0.1-adobe
 
 - fixed erroneous `std::make_shared<T>`
