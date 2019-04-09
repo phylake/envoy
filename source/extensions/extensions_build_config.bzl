@@ -32,8 +32,10 @@ EXTENSIONS = {
     "envoy.filters.http.grpc_json_transcoder":          "//source/extensions/filters/http/grpc_json_transcoder:config",
     "envoy.filters.http.grpc_web":                      "//source/extensions/filters/http/grpc_web:config",
     "envoy.filters.http.gzip":                          "//source/extensions/filters/http/gzip:config",
+    "envoy.filters.http.header_size":                   "//source/extensions/filters/http/header_size:config",
     "envoy.filters.http.header_to_metadata":            "//source/extensions/filters/http/header_to_metadata:config",
     "envoy.filters.http.health_check":                  "//source/extensions/filters/http/health_check:config",
+    "envoy.filters.http.ip_allow_deny":                 "//source/extensions/filters/http/ip_allow_deny:config",
     "envoy.filters.http.ip_tagging":                    "//source/extensions/filters/http/ip_tagging:config",
     "envoy.filters.http.jwt_authn":                     "//source/extensions/filters/http/jwt_authn:config",
     "envoy.filters.http.lua":                           "//source/extensions/filters/http/lua:config",
@@ -55,6 +57,8 @@ EXTENSIONS = {
     "envoy.filters.listener.original_dst":              "//source/extensions/filters/listener/original_dst:config",
 
     "envoy.filters.listener.tls_inspector":             "//source/extensions/filters/listener/tls_inspector:config",
+
+    "envoy.filters.listener.ip_allow_deny":             "//source/extensions/filters/listener/ip_allow_deny:config",
 
     #
     # Network filters
