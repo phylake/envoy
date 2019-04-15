@@ -16,6 +16,10 @@ v{E major}.{E minor}.{E fix}-{A major}.{A minor}.{A fix}-adobe
 
 # Log
 
+## v1.9.1-2.1.0-adobe
+
+- increase hardcoded max header size to 64KiB
+
 ## v1.9.1-2.0.0-adobe
 
 - upgrade envoy to address CVEs

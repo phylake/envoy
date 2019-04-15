@@ -615,7 +615,7 @@ void ConnectionManagerImpl::ActiveStream::decodeHeaders(HeaderMapPtr&& headers, 
   // under 60K. Ultimately it would be nice to have a configuration option ranging from the largest
   // header size http_parser and nghttp2 will allow, down to 16k or 8k for
   // envoy users who do not wish to proxy large headers.
-  if (request_headers_->byteSize() > (60 * 1024)) {
+  if (request_headers_->byteSize() > (64 * 1024)) {
     sendLocalReply(Grpc::Common::hasGrpcContentType(*request_headers_),
                    Code::RequestHeaderFieldsTooLarge, "", nullptr, is_head_request_, absl::nullopt);
     return;
