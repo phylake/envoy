@@ -3,7 +3,7 @@ FROM frolvlad/alpine-glibc
 ENV loglevel=info
 
 RUN apk upgrade --update-cache \
-    && apk add dumb-init \
+    && apk add dumb-init curl \
     && rm -rf /var/cache/apk/*
 
 RUN mkdir -p /etc/envoy

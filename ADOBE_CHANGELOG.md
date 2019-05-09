@@ -16,6 +16,11 @@ v{E major}.{E minor}.{E fix}-{A major}.{A minor}.{A fix}-adobe
 
 # Log
 
+## v1.9.1-2.2.0-adobe
+
+- set default upstream idle timeout of 58s if none is provided
+- add curl to image for easier `preStop` handling
+
 ## v1.9.1-2.1.0-adobe
 
 - increase hardcoded max header size to 64KiB
