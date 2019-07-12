@@ -16,6 +16,10 @@ v{E major}.{E minor}.{E fix}-{A major}.{A minor}.{A fix}-adobe
 
 # Log
 
+## v1.10.0-2.3.0-adobe
+
+- added `envoy.filters.http.health_check_simple`
+
 ## v1.10.0-2.2.0-adobe
 
 - upgraded envoy

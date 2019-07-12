@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package envoy.config.filter.http.health_check_simple.v2;
+option go_package = "v2";
+
+import "gogoproto/gogo.proto";
+
+message HealthCheckSimple {
+  string path = 1;
+}
