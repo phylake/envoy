@@ -627,6 +627,8 @@ ClusterInfoImpl::ClusterInfoImpl(const envoy::api::v2::Cluster& config,
   if (config.common_http_protocol_options().has_idle_timeout()) {
     idle_timeout_ = std::chrono::milliseconds(
         DurationUtil::durationToMilliseconds(config.common_http_protocol_options().idle_timeout()));
+  } else {
+    idle_timeout_ = std::chrono::milliseconds(58000);
   }
   if (config.has_eds_cluster_config()) {
     if (config.type() != envoy::api::v2::Cluster::EDS) {
