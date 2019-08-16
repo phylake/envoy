@@ -72,7 +72,7 @@ static void validateRbacRules(const envoy::config::rbac::v2::RBAC& rules) {
 Network::FilterFactoryCb
 RoleBasedAccessControlNetworkFilterConfigFactory::createFilterFactoryFromProtoTyped(
     const envoy::config::filter::network::rbac::v2::RBAC& proto_config,
-    Server::Configuration::FactoryContext& context) {
+    Server::Configuration::FactoryContext& context, const std::string&) {
   validateRbacRules(proto_config.rules());
   validateRbacRules(proto_config.shadow_rules());
   RoleBasedAccessControlFilterConfigSharedPtr config(

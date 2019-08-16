@@ -14,15 +14,16 @@ namespace ClientSslAuth {
 
 Network::FilterFactoryCb
 ClientSslAuthConfigFactory::createFilterFactory(const Json::Object& json_config,
-                                                Server::Configuration::FactoryContext& context) {
+                                                Server::Configuration::FactoryContext& context,
+                                                const std::string& sni) {
   envoy::config::filter::network::client_ssl_auth::v2::ClientSSLAuth proto_config;
   Config::FilterJson::translateClientSslAuthFilter(json_config, proto_config);
-  return createFilterFactoryFromProtoTyped(proto_config, context);
+  return createFilterFactoryFromProtoTyped(proto_config, context, sni);
 }
 
 Network::FilterFactoryCb ClientSslAuthConfigFactory::createFilterFactoryFromProtoTyped(
     const envoy::config::filter::network::client_ssl_auth::v2::ClientSSLAuth& proto_config,
-    Server::Configuration::FactoryContext& context) {
+    Server::Configuration::FactoryContext& context, const std::string&) {
   ASSERT(!proto_config.auth_api_cluster().empty());
   ASSERT(!proto_config.stat_prefix().empty());
 

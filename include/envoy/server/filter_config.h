@@ -295,16 +295,19 @@ public:
    * @return Network::FilterFactoryCb the factory creation function.
    */
   virtual Network::FilterFactoryCb createFilterFactory(const Json::Object& config,
-                                                       FactoryContext& context) PURE;
+                                                       FactoryContext& context,
+                                                       const std::string& sni) PURE;
 
   /**
    * v2 variant of createFilterFactory(..), where filter configs are specified as proto. This may be
    * optionally implemented today, but will in the future become compulsory once v1 is deprecated.
    */
   virtual Network::FilterFactoryCb createFilterFactoryFromProto(const Protobuf::Message& config,
-                                                                FactoryContext& context) {
+                                                                FactoryContext& context,
+                                                                const std::string& sni) {
     UNREFERENCED_PARAMETER(config);
     UNREFERENCED_PARAMETER(context);
+    UNREFERENCED_PARAMETER(sni);
     NOT_IMPLEMENTED_GCOVR_EXCL_LINE;
   }
 

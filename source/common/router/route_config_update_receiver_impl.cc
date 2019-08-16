@@ -80,5 +80,29 @@ void RouteConfigUpdateReceiverImpl::rebuildRouteConfig(
   }
 }
 
+const envoy::api::v2::RouteConfiguration RouteConfigUpdateReceiverImpl::routeConfiguration(const std::string& sni) {
+  if (!sni.empty()) {
+    auto route_config_proto = route_config_proto_;
+    route_config_proto.clear_virtual_hosts();
+
+    for (const auto& vhost : route_config_proto_.virtual_hosts()) {
+      for (const auto& domain : vhost.domains()) {
+        if (domain == sni) {
+          route_config_proto.add_virtual_hosts()->CopyFrom(vhost);
+        }
+      }
+      if (route_config_proto.virtual_hosts_size() != 0) {
+        break;
+      }
+    }
+
+    if (route_config_proto.virtual_hosts_size() != 0) {
+      return route_config_proto;
+    }
+  }
+
+  return route_config_proto_;
+}
+
 } // namespace Router
 } // namespace Envoy

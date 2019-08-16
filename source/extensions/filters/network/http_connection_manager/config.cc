@@ -75,7 +75,7 @@ Network::FilterFactoryCb
 HttpConnectionManagerFilterConfigFactory::createFilterFactoryFromProtoTyped(
     const envoy::config::filter::network::http_connection_manager::v2::HttpConnectionManager&
         proto_config,
-    Server::Configuration::FactoryContext& context) {
+    Server::Configuration::FactoryContext& context, const std::string& sni) {
   std::shared_ptr<Http::TlsCachingDateProviderImpl> date_provider =
       context.singletonManager().getTyped<Http::TlsCachingDateProviderImpl>(
           SINGLETON_MANAGER_REGISTERED_NAME(date_provider), [&context] {
@@ -97,7 +97,7 @@ HttpConnectionManagerFilterConfigFactory::createFilterFactoryFromProtoTyped(
 
   std::shared_ptr<HttpConnectionManagerConfig> filter_config(new HttpConnectionManagerConfig(
       proto_config, context, *date_provider, *route_config_provider_manager,
-      *scoped_routes_config_provider_manager));
+      *scoped_routes_config_provider_manager, sni));
 
   // This lambda captures the shared_ptrs created above, thus preserving the
   // reference count. Moreover, keep in mind the capture list determines
@@ -112,10 +112,10 @@ HttpConnectionManagerFilterConfigFactory::createFilterFactoryFromProtoTyped(
 }
 
 Network::FilterFactoryCb HttpConnectionManagerFilterConfigFactory::createFilterFactory(
-    const Json::Object& json_config, Server::Configuration::FactoryContext& context) {
+    const Json::Object& json_config, Server::Configuration::FactoryContext& context, const std::string& sni) {
   envoy::config::filter::network::http_connection_manager::v2::HttpConnectionManager proto_config;
   Config::FilterJson::translateHttpConnectionManager(json_config, proto_config);
-  return createFilterFactoryFromProtoTyped(proto_config, context);
+  return createFilterFactoryFromProtoTyped(proto_config, context, sni);
 }
 
 /**
@@ -134,7 +134,7 @@ HttpConnectionManagerConfig::HttpConnectionManagerConfig(
         config,
     Server::Configuration::FactoryContext& context, Http::DateProvider& date_provider,
     Router::RouteConfigProviderManager& route_config_provider_manager,
-    Config::ConfigProviderManager& scoped_routes_config_provider_manager)
+    Config::ConfigProviderManager& scoped_routes_config_provider_manager, const std::string& sni)
     : context_(context), stats_prefix_(fmt::format("http.{}.", config.stat_prefix())),
       stats_(Http::ConnectionManagerImpl::generateStats(stats_prefix_, context_.scope())),
       tracing_stats_(
@@ -178,7 +178,7 @@ HttpConnectionManagerConfig::HttpConnectionManagerConfig(
   case envoy::config::filter::network::http_connection_manager::v2::HttpConnectionManager::
       kRouteConfig:
     route_config_provider_ = Router::RouteConfigProviderUtil::create(
-        config, context_, stats_prefix_, route_config_provider_manager_);
+        config, context_, stats_prefix_, route_config_provider_manager_, sni);
     break;
   case envoy::config::filter::network::http_connection_manager::v2::HttpConnectionManager::
       kScopedRoutes:

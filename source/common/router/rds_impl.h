@@ -44,7 +44,7 @@ public:
   create(const envoy::config::filter::network::http_connection_manager::v2::HttpConnectionManager&
              config,
          Server::Configuration::FactoryContext& factory_context, const std::string& stat_prefix,
-         RouteConfigProviderManager& route_config_provider_manager);
+         RouteConfigProviderManager& route_config_provider_manager, const std::string& sni);
 };
 
 class RouteConfigProviderManagerImpl;
@@ -174,12 +174,14 @@ private:
   };
 
   RdsRouteConfigProviderImpl(RdsRouteConfigSubscriptionSharedPtr&& subscription,
-                             Server::Configuration::FactoryContext& factory_context);
+                             Server::Configuration::FactoryContext& factory_context,
+                             const std::string& sni);
 
   RdsRouteConfigSubscriptionSharedPtr subscription_;
   RouteConfigUpdatePtr& config_update_info_;
   Server::Configuration::FactoryContext& factory_context_;
   ThreadLocal::SlotPtr tls_;
+  const std::string sni_;
 
   friend class RouteConfigProviderManagerImpl;
 };
@@ -195,7 +197,7 @@ public:
   RouteConfigProviderPtr createRdsRouteConfigProvider(
       const envoy::config::filter::network::http_connection_manager::v2::Rds& rds,
       Server::Configuration::FactoryContext& factory_context,
-      const std::string& stat_prefix) override;
+      const std::string& stat_prefix, const std::string& sni) override;
 
   RouteConfigProviderPtr
   createStaticRouteConfigProvider(const envoy::api::v2::RouteConfiguration& route_config,

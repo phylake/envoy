@@ -115,9 +115,10 @@ public:
                                         listenerManager(), messageValidationVisitor());
   }
   std::vector<Network::FilterFactoryCb> createNetworkFilterFactoryList(
+      const envoy::api::v2::listener::FilterChainMatch& filter_chain_match,
       const Protobuf::RepeatedPtrField<envoy::api::v2::listener::Filter>& filters,
       Configuration::FactoryContext& context) override {
-    return ProdListenerComponentFactory::createNetworkFilterFactoryList_(filters, context);
+    return ProdListenerComponentFactory::createNetworkFilterFactoryList_(filter_chain_match, filters, context);
   }
   std::vector<Network::ListenerFilterFactoryCb> createListenerFilterFactoryList(
       const Protobuf::RepeatedPtrField<envoy::api::v2::listener::ListenerFilter>& filters,

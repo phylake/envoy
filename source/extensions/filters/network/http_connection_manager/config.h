@@ -38,13 +38,14 @@ public:
   // NamedNetworkFilterConfigFactory
   Network::FilterFactoryCb
   createFilterFactory(const Json::Object& json_config,
-                      Server::Configuration::FactoryContext& context) override;
+                      Server::Configuration::FactoryContext& context,
+                      const std::string& sni) override;
 
 private:
   Network::FilterFactoryCb createFilterFactoryFromProtoTyped(
       const envoy::config::filter::network::http_connection_manager::v2::HttpConnectionManager&
           proto_config,
-      Server::Configuration::FactoryContext& context) override;
+      Server::Configuration::FactoryContext& context, const std::string& sni) override;
 };
 
 DECLARE_FACTORY(HttpConnectionManagerFilterConfigFactory);
@@ -82,7 +83,8 @@ public:
           config,
       Server::Configuration::FactoryContext& context, Http::DateProvider& date_provider,
       Router::RouteConfigProviderManager& route_config_provider_manager,
-      Config::ConfigProviderManager& scoped_routes_config_provider_manager);
+      Config::ConfigProviderManager& scoped_routes_config_provider_manager,
+      const std::string& sni);
 
   // Http::FilterChainFactory
   void createFilterChain(Http::FilterChainFactoryCallbacks& callbacks) override;
