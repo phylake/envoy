@@ -36,8 +36,7 @@ public:
    */
   virtual RouteConfigProviderPtr createRdsRouteConfigProvider(
       const envoy::config::filter::network::http_connection_manager::v2::Rds& rds,
-      Server::Configuration::FactoryContext& factory_context, const std::string& stat_prefix,
-      const std::string& sni) PURE;
+      Server::Configuration::FactoryContext& factory_context, const std::string& stat_prefix) PURE;
 
   /**
    * Get a RouteConfigSharedPtr for a statically defined route. Ownership is as described for

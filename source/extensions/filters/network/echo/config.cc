@@ -16,8 +16,7 @@ class EchoConfigFactory : public Server::Configuration::NamedNetworkFilterConfig
 public:
   // NamedNetworkFilterConfigFactory
   Network::FilterFactoryCb createFilterFactory(const Json::Object&,
-                                               Server::Configuration::FactoryContext&,
-                                               const std::string&) override {
+                                               Server::Configuration::FactoryContext&) override {
     return [](Network::FilterManager& filter_manager) -> void {
       filter_manager.addReadFilter(std::make_shared<EchoFilter>());
     };
@@ -25,8 +24,7 @@ public:
 
   Network::FilterFactoryCb
   createFilterFactoryFromProto(const Protobuf::Message&,
-                               Server::Configuration::FactoryContext&,
-                               const std::string&) override {
+                               Server::Configuration::FactoryContext&) override {
     return [](Network::FilterManager& filter_manager) -> void {
       filter_manager.addReadFilter(std::make_shared<EchoFilter>());
     };

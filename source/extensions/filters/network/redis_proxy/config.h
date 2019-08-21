@@ -46,14 +46,12 @@ public:
   // NamedNetworkFilterConfigFactory
   Network::FilterFactoryCb
   createFilterFactory(const Json::Object& json_config,
-                      Server::Configuration::FactoryContext& context,
-                      const std::string& sni) override;
+                      Server::Configuration::FactoryContext& context) override;
 
 private:
   Network::FilterFactoryCb createFilterFactoryFromProtoTyped(
       const envoy::config::filter::network::redis_proxy::v2::RedisProxy& proto_config,
-      Server::Configuration::FactoryContext& context,
-      const std::string& sni) override;
+      Server::Configuration::FactoryContext& context) override;
 
   Upstream::ProtocolOptionsConfigConstSharedPtr createProtocolOptionsTyped(
       const envoy::config::filter::network::redis_proxy::v2::RedisProtocolOptions& proto_config)

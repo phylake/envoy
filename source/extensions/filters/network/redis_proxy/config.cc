@@ -27,7 +27,7 @@ inline void addUniqueClusters(
 
 Network::FilterFactoryCb RedisProxyFilterConfigFactory::createFilterFactoryFromProtoTyped(
     const envoy::config::filter::network::redis_proxy::v2::RedisProxy& proto_config,
-    Server::Configuration::FactoryContext& context, const std::string&) {
+    Server::Configuration::FactoryContext& context) {
 
   ASSERT(!proto_config.stat_prefix().empty());
   ASSERT(proto_config.has_settings());
@@ -83,11 +83,10 @@ Network::FilterFactoryCb RedisProxyFilterConfigFactory::createFilterFactoryFromP
 
 Network::FilterFactoryCb
 RedisProxyFilterConfigFactory::createFilterFactory(const Json::Object& json_config,
-                                                   Server::Configuration::FactoryContext& context,
-                                                   const std::string& sni) {
+                                                   Server::Configuration::FactoryContext& context) {
   envoy::config::filter::network::redis_proxy::v2::RedisProxy proto_config;
   Config::FilterJson::translateRedisProxy(json_config, proto_config);
-  return createFilterFactoryFromProtoTyped(proto_config, context, sni);
+  return createFilterFactoryFromProtoTyped(proto_config, context);
 }
 
 /**

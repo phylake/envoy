@@ -23,7 +23,7 @@ RouteConfigProviderPtr RouteConfigProviderUtil::create(
     const envoy::config::filter::network::http_connection_manager::v2::HttpConnectionManager&
         config,
     Server::Configuration::FactoryContext& factory_context, const std::string& stat_prefix,
-    RouteConfigProviderManager& route_config_provider_manager, const std::string& sni) {
+    RouteConfigProviderManager& route_config_provider_manager) {
   switch (config.route_specifier_case()) {
   case envoy::config::filter::network::http_connection_manager::v2::HttpConnectionManager::
       kRouteConfig:
@@ -31,7 +31,7 @@ RouteConfigProviderPtr RouteConfigProviderUtil::create(
                                                                          factory_context);
   case envoy::config::filter::network::http_connection_manager::v2::HttpConnectionManager::kRds:
     return route_config_provider_manager.createRdsRouteConfigProvider(config.rds(), factory_context,
-                                                                      stat_prefix, sni);
+                                                                      stat_prefix);
   default:
     NOT_REACHED_GCOVR_EXCL_LINE;
   }
@@ -165,14 +165,13 @@ bool RdsRouteConfigSubscription::validateUpdateSize(int num_resources) {
 
 RdsRouteConfigProviderImpl::RdsRouteConfigProviderImpl(
     RdsRouteConfigSubscriptionSharedPtr&& subscription,
-    Server::Configuration::FactoryContext& factory_context,
-    const std::string& sni)
+    Server::Configuration::FactoryContext& factory_context)
     : subscription_(std::move(subscription)),
       config_update_info_(subscription_->routeConfigUpdate()), factory_context_(factory_context),
-      tls_(factory_context.threadLocal().allocateSlot()), sni_(sni) {
+      tls_(factory_context.threadLocal().allocateSlot()) {
   ConfigConstSharedPtr initial_config;
   if (config_update_info_->configInfo().has_value()) {
-    initial_config = std::make_shared<ConfigImpl>(config_update_info_->routeConfiguration(sni_),
+    initial_config = std::make_shared<ConfigImpl>(config_update_info_->routeConfiguration(),
                                                   factory_context_, false);
   } else {
     initial_config = std::make_shared<NullConfigImpl>();
@@ -193,7 +192,7 @@ Router::ConfigConstSharedPtr RdsRouteConfigProviderImpl::config() {
 
 void RdsRouteConfigProviderImpl::onConfigUpdate() {
   ConfigConstSharedPtr new_config(
-      new ConfigImpl(config_update_info_->routeConfiguration(sni_), factory_context_, false));
+      new ConfigImpl(config_update_info_->routeConfiguration(), factory_context_, false));
   tls_->runOnAllThreads(
       [this, new_config]() -> void { tls_->getTyped<ThreadLocalConfig>().config_ = new_config; });
 }
@@ -208,8 +207,7 @@ RouteConfigProviderManagerImpl::RouteConfigProviderManagerImpl(Server::Admin& ad
 
 Router::RouteConfigProviderPtr RouteConfigProviderManagerImpl::createRdsRouteConfigProvider(
     const envoy::config::filter::network::http_connection_manager::v2::Rds& rds,
-    Server::Configuration::FactoryContext& factory_context, const std::string& stat_prefix,
-    const std::string& sni) {
+    Server::Configuration::FactoryContext& factory_context, const std::string& stat_prefix) {
 
   // RdsRouteConfigSubscriptions are unique based on their serialized RDS config.
   const uint64_t manager_identifier = MessageUtil::hash(rds);
@@ -236,7 +234,7 @@ Router::RouteConfigProviderPtr RouteConfigProviderManagerImpl::createRdsRouteCon
   ASSERT(subscription);
 
   Router::RouteConfigProviderPtr new_provider{
-      new RdsRouteConfigProviderImpl(std::move(subscription), factory_context, sni)};
+      new RdsRouteConfigProviderImpl(std::move(subscription), factory_context)};
   return new_provider;
 }
 

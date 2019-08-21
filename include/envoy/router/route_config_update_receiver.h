@@ -66,7 +66,7 @@ public:
   /**
    * @return envoy::api::v2::RouteConfiguration& current RouteConfiguration.
    */
-  virtual const envoy::api::v2::RouteConfiguration routeConfiguration(const std::string& = "") PURE;
+  virtual const envoy::api::v2::RouteConfiguration& routeConfiguration() PURE;
 
   /**
    * @return SystemTime the time of the last update.

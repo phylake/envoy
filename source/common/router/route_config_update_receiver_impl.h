@@ -41,7 +41,9 @@ public:
   absl::optional<RouteConfigProvider::ConfigInfo> configInfo() const override {
     return config_info_;
   }
-  const envoy::api::v2::RouteConfiguration routeConfiguration(const std::string& = "") override;
+  const envoy::api::v2::RouteConfiguration& routeConfiguration() override {
+    return route_config_proto_;
+  }
   SystemTime lastUpdated() const override { return last_updated_; }
 
 private:

@@ -16,10 +16,6 @@ v{E major}.{E minor}.{E fix}-{A major}.{A minor}.{A fix}-adobe
 
 # Log
 
-## v1.11.1-2.4.0-adobe
-
-- O(n) config memory growth for SNI
-
 ## v1.11.1-2.3.0-adobe
 
 - upgraded envoy

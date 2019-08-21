@@ -17,18 +17,16 @@ class FactoryBase : public Server::Configuration::NamedNetworkFilterConfigFactor
 public:
   // Server::Configuration::NamedNetworkFilterConfigFactory
   Network::FilterFactoryCb createFilterFactory(const Json::Object&,
-                                               Server::Configuration::FactoryContext&,
-                                               const std::string&) override {
+                                               Server::Configuration::FactoryContext&) override {
     // Only used in v1 filters.
     NOT_IMPLEMENTED_GCOVR_EXCL_LINE;
   }
 
   Network::FilterFactoryCb
   createFilterFactoryFromProto(const Protobuf::Message& proto_config,
-                               Server::Configuration::FactoryContext& context,
-                               const std::string& sni) override {
+                               Server::Configuration::FactoryContext& context) override {
     return createFilterFactoryFromProtoTyped(
-        MessageUtil::downcastAndValidate<const ConfigProto&>(proto_config), context, sni);
+        MessageUtil::downcastAndValidate<const ConfigProto&>(proto_config), context);
   }
 
   ProtobufTypes::MessagePtr createEmptyConfigProto() override {
@@ -53,8 +51,7 @@ protected:
 private:
   virtual Network::FilterFactoryCb
   createFilterFactoryFromProtoTyped(const ConfigProto& proto_config,
-                                    Server::Configuration::FactoryContext& context,
-                                    const std::string& sni) PURE;
+                                    Server::Configuration::FactoryContext& context) PURE;
 
   virtual Upstream::ProtocolOptionsConfigConstSharedPtr
   createProtocolOptionsTyped(const ProtocolOptionsProto&) {

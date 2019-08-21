@@ -48,12 +48,8 @@ std::string toString(Network::Address::SocketType socket_type) {
 } // namespace
 
 std::vector<Network::FilterFactoryCb> ProdListenerComponentFactory::createNetworkFilterFactoryList_(
-    const envoy::api::v2::listener::FilterChainMatch& filter_chain_match,
     const Protobuf::RepeatedPtrField<envoy::api::v2::listener::Filter>& filters,
     Configuration::FactoryContext& context) {
-  const std::string sni = filter_chain_match.server_names_size() == 1
-                              ? filter_chain_match.server_names()[0]
-                              : "";
   std::vector<Network::FilterFactoryCb> ret;
   for (ssize_t i = 0; i < filters.size(); i++) {
     const auto& proto_config = filters[i];
@@ -70,11 +66,11 @@ std::vector<Network::FilterFactoryCb> ProdListenerComponentFactory::createNetwor
             string_name);
     Network::FilterFactoryCb callback;
     if (Config::Utility::allowDeprecatedV1Config(context.runtime(), *filter_config)) {
-      callback = factory.createFilterFactory(*filter_config->getObject("value", true), context, sni);
+      callback = factory.createFilterFactory(*filter_config->getObject("value", true), context);
     } else {
       auto message = Config::Utility::translateToFactoryConfig(
           proto_config, context.messageValidationVisitor(), factory);
-      callback = factory.createFilterFactoryFromProto(*message, context, sni);
+      callback = factory.createFilterFactoryFromProto(*message, context);
     }
     ret.push_back(callback);
   }
@@ -825,7 +821,7 @@ std::unique_ptr<Network::FilterChain> ListenerFilterChainFactoryBuilder::buildFi
   return std::make_unique<FilterChainImpl>(
       config_factory.createTransportSocketFactory(*message, factory_context_,
                                                   std::move(server_names)),
-      parent_.parent_.factory_.createNetworkFilterFactoryList(filter_chain.filter_chain_match(), filter_chain.filters(), parent_));
+      parent_.parent_.factory_.createNetworkFilterFactoryList(filter_chain.filters(), parent_));
 }
 
 } // namespace Server
