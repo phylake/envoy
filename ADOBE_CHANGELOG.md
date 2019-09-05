@@ -16,6 +16,15 @@ v{E major}.{E minor}.{E fix}-{A major}.{A minor}.{A fix}-adobe
 
 # Log
 
+## v1.11.1-2.5.0-adobe
+
+- revert v1.11.1-2.4.0-adobe for a better solution in Contour
+- cap upstream idle_timeout to 5 mins
+
+## v1.11.1-2.4.0-adobe
+
+- O(n) config memory growth for SNI
+
 ## v1.11.1-2.3.0-adobe
 
 - upgraded envoy
