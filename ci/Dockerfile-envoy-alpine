@@ -1,5 +1,7 @@
 FROM frolvlad/alpine-glibc
 
+RUN apk update && apk add curl
+
 RUN mkdir -p /etc/envoy
 
 ADD build_release_stripped/envoy /usr/local/bin/envoy

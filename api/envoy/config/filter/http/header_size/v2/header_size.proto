@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package envoy.config.filter.http.header_size.v2;
+option go_package = "v2";
+
+import "google/protobuf/duration.proto";
+import "google/protobuf/wrappers.proto";
+
+import "validate/validate.proto";
+import "gogoproto/gogo.proto";
+
+// [#protodoc-title: HeaderSize]
+// HeaderSize :ref:`configuration overview <config_http_filters_buffer>`.
+
+message HeaderSize {
+  google.protobuf.UInt32Value max_bytes = 1 [(validate.rules).uint32.gt = 0];
+}
+
+message HeaderSizePerRoute {
+  oneof override {
+    option (validate.required) = true;
+
+    // Disable the filter for this particular vhost or route.
+    bool disabled = 1 [(validate.rules).bool.const = true];
+
+    // Override the global configuration of the filter with this new config.
+    HeaderSize header_size = 2 [(validate.rules).message.required = true];
+  }
+}
