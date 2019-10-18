@@ -16,6 +16,10 @@ v{E major}.{E minor}.{E fix}-{A major}.{A minor}.{A fix}-adobe
 
 # Log
 
+## v1.11.2-2.6.0-adobe
+
+- added `/opt/jaeger/jaeger-tracer.so` to the Docker image
+
 ## v1.11.2-2.5.0-adobe
 
 - upgraded envoy
