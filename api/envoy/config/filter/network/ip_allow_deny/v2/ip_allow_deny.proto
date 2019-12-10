@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package envoy.config.filter.network.ip_allow_deny.v2;
+
+import "envoy/api/v2/core/address.proto";
+
+message IpAllowDeny {
+  repeated envoy.api.v2.core.CidrRange allow_cidrs = 1;
+  repeated envoy.api.v2.core.CidrRange deny_cidrs = 2;
+}

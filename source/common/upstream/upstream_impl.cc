@@ -725,9 +725,12 @@ ClusterInfoImpl::ClusterInfoImpl(
         DurationUtil::durationToMilliseconds(config.common_http_protocol_options().idle_timeout()));
     if (idle_timeout_.value().count() == 0) {
       idle_timeout_ = absl::nullopt;
+    } else {
+      const std::chrono::milliseconds five_mins(1000 * 300);
+      idle_timeout_ = idle_timeout_ > five_mins ? five_mins : idle_timeout_;
     }
   } else {
-    idle_timeout_ = std::chrono::hours(1);
+    idle_timeout_ = std::chrono::milliseconds(58000);
   }
 
   if (config.has_eds_cluster_config()) {
