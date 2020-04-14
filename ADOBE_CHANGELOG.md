@@ -16,9 +16,14 @@ v{E major}.{E minor}.{E fix}-{A major}.{A minor}.{A fix}-adobe
 
 # Log
 
-## v1.13.1-2.6.0-adobe
+## v1.13.1-2.6.1-adobe
 
 - upgraded envoy
+
+## v1.12.3-2.6.1-adobe
+
+- fix `idle_timeout` default and override not updating `stream_idle_timeout`
+- upgrade envoy which fixes multiple CVEs
 
 ## v1.12.2-2.6.0-adobe
 
