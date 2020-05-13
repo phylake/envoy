@@ -16,6 +16,11 @@ v{E major}.{E minor}.{E fix}-{A major}.{A minor}.{A fix}-adobe
 
 # Log
 
+## v1.13.1-2.6.2-adobe
+
+- jaeger 0.5.0 was removed from GitHub releases
+- build with ENVOY_STDLIB=libstdc++ to fix ABI incompatibility
+
 ## v1.13.1-2.6.1-adobe
 
 - upgraded envoy
