@@ -1,5 +1,10 @@
 FROM frolvlad/alpine-glibc:alpine-3.12_glibc-2.31
 
+RUN apk update && apk add curl
+
+RUN mkdir -p /opt/jaeger
+RUN curl -Lo /opt/jaeger/jaeger-tracer.so https://github.com/jaegertracing/jaeger-client-cpp/releases/download/v0.4.2/libjaegertracing_plugin.linux_amd64.so
+
 RUN mkdir -p /etc/envoy
 
 ADD build_release_stripped/envoy /usr/local/bin/envoy
