@@ -76,9 +76,6 @@ void UUIDRequestIDExtension::setTraceStatus(RequestHeaderMap& request_headers, T
     return;
   }
   absl::string_view uuid_view = request_headers.RequestId()->value().getStringView();
-  if (uuid_view.length() != Runtime::RandomGeneratorImpl::UUID_LENGTH) {
-    return;
-  }
   std::string uuid(uuid_view);
 
   switch (status) {

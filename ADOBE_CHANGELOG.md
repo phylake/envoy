@@ -16,6 +16,10 @@ v{E major}.{E minor}.{E fix}-{A major}.{A minor}.{A fix}-adobe
 
 # Log
 
+## v1.14.4-2.7.0-adobe
+
+- lift restriction for x-request-id length related to tracing
+
 ## v1.14.4-2.6.3-adobe
 
 - fix issue where spans are sent even when not sampled
