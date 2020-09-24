@@ -16,6 +16,10 @@ v{E major}.{E minor}.{E fix}-{A major}.{A minor}.{A fix}-adobe
 
 # Log
 
+## v1.14.4-2.8.0-adobe
+
+- prevent envoy from modifying the x-request-id header
+
 ## v1.14.4-2.7.1-adobe
 
 - fix trace id header to match open tracing default
