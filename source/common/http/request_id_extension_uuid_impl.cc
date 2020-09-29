@@ -95,7 +95,7 @@ void UUIDRequestIDExtension::setTraceStatus(RequestHeaderMap& request_headers, T
     uuid[TRACE_BYTE_POSITION] = NO_TRACE;
     break;
   }
-  request_headers.setRequestId(uuid);
+  // request_headers.setRequestId(uuid);
 }
 
 } // namespace Http

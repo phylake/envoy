@@ -63,7 +63,7 @@ public:
   const LowerCaseString ProxyAuthenticate{"proxy-authenticate"};
   const LowerCaseString ProxyAuthorization{"proxy-authorization"};
   const LowerCaseString CacheControl{"cache-control"};
-  const LowerCaseString ClientTraceId{"x-client-trace-id"};
+  const LowerCaseString ClientTraceId{"uber-trace-id"};
   const LowerCaseString Connection{"connection"};
   const LowerCaseString ContentEncoding{"content-encoding"};
   const LowerCaseString ContentLength{"content-length"};
