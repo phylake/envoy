@@ -72,11 +72,6 @@ Decision HttpTracerUtility::isTracing(const StreamInfo::StreamInfo& stream_info,
   Http::TraceStatus trace_status =
       stream_info.getRequestIDExtension()->getTraceStatus(request_headers);
 
-  if (trace_status == Http::TraceStatus::Client) {
-         return {Reason::ClientForced, true};
-  }
-
-  /*
   switch (trace_status) {
   case Http::TraceStatus::Client:
     return {Reason::ClientForced, true};
@@ -89,8 +84,6 @@ Decision HttpTracerUtility::isTracing(const StreamInfo::StreamInfo& stream_info,
   }
 
   NOT_REACHED_GCOVR_EXCL_LINE;
-  */
-  return {Reason::ClientForced, true};
 }
 
 static void addTagIfNotNull(Span& span, const std::string& tag, const Http::HeaderEntry* entry) {

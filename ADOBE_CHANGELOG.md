@@ -16,6 +16,11 @@ v{E major}.{E minor}.{E fix}-{A major}.{A minor}.{A fix}-adobe
 
 # Log
 
+## v1.14.5-2.9.0-adobe
+
+- provide alternative implementation of Envoy::Http::RequestIDExtension
+- unwind previous tracing changes
+
 ## v1.14.5-2.8.0-adobe
 
 - upgraded envoy

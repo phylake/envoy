@@ -2,7 +2,7 @@
 
 #include "common/common/utility.h"
 #include "common/config/utility.h"
-#include "common/http/request_id_extension_uuid_impl.h"
+#include "common/http/request_id_extension_adobe_impl.h"
 
 namespace Envoy {
 namespace Http {
@@ -41,7 +41,7 @@ RequestIDExtensionSharedPtr RequestIDExtensionFactory::fromProto(
 
 RequestIDExtensionSharedPtr
 RequestIDExtensionFactory::defaultInstance(Envoy::Runtime::RandomGenerator& random) {
-  return std::make_shared<UUIDRequestIDExtension>(random);
+  return std::make_shared<AdobeRequestIDExtension>(random);
 }
 
 RequestIDExtensionSharedPtr RequestIDExtensionFactory::noopInstance() {

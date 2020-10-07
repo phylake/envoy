@@ -295,6 +295,7 @@ private:
   HEADER_FUNC(EnvoyRetriableHeaderNames)                                                           \
   HEADER_FUNC(EnvoyOriginalPath)                                                                   \
   HEADER_FUNC(EnvoyOriginalUrl)                                                                    \
+  HEADER_FUNC(EnvoyTraceDecision)                                                                  \
   HEADER_FUNC(EnvoyUpstreamAltStatName)                                                            \
   HEADER_FUNC(EnvoyUpstreamRequestPerTryTimeoutMs)                                                 \
   HEADER_FUNC(EnvoyUpstreamRequestTimeoutAltResponse)                                              \

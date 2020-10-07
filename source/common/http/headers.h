@@ -99,6 +99,7 @@ public:
       absl::StrCat(prefix(), "-retriable-status-codes")};
   const LowerCaseString EnvoyRetriableHeaderNames{
       absl::StrCat(prefix(), "-retriable-header-names")};
+  const LowerCaseString EnvoyTraceDecision{absl::StrCat(prefix(), "-trace-decision")};
   const LowerCaseString EnvoyUpstreamAltStatName{absl::StrCat(prefix(), "-upstream-alt-stat-name")};
   const LowerCaseString EnvoyUpstreamCanary{absl::StrCat(prefix(), "-upstream-canary")};
   const LowerCaseString EnvoyUpstreamHostAddress{absl::StrCat(prefix(), "-upstream-host-address")};
