@@ -52,10 +52,6 @@ TraceStatus AdobeRequestIDExtension::getTraceStatus(const RequestHeaderMap& requ
 }
 
 void AdobeRequestIDExtension::setTraceStatus(RequestHeaderMap& request_headers, TraceStatus status) {
-  if (request_headers.ClientTraceId() == nullptr) {
-    return;
-  }
-
   switch (status) {
   case TraceStatus::Forced:
     request_headers.setEnvoyTraceDecision("forced_sample");
