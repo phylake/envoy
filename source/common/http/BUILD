@@ -399,10 +399,12 @@ envoy_cc_library(
     srcs = [
         "request_id_extension_impl.cc",
         "request_id_extension_uuid_impl.cc",
+        "request_id_extension_adobe_impl.cc",
     ],
     hdrs = [
         "request_id_extension_impl.h",
         "request_id_extension_uuid_impl.h",
+        "request_id_extension_adobe_impl.h",
     ],
     deps = [
         "//include/envoy/http:request_id_extension_interface",
