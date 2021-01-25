@@ -1,6 +1,8 @@
 #include <utility>
 #include <vector>
 
+#include "common/http/headers.h"
+#include "common/http/header_map_impl.h"
 #include "common/http/path_utility.h"
 
 #include "test/test_common/utility.h"
@@ -93,9 +95,28 @@ TEST_F(PathUtilityTest, NormalizeCasePath) {
 // Paths that are valid get normalized.
 TEST_F(PathUtilityTest, MergeSlashes) {
   auto mergeSlashes = [this](const std::string& path_value) {
+    // clear the original path with double slash header
+    headers_.remove(Headers::get().EnvoyOriginalPathUnmergedSlashes);
+
     auto& path_header = pathHeaderEntry(path_value);
     PathUtil::mergeSlashes(headers_);
     auto sanitized_path_value = path_header.value().getStringView();
+
+    auto original_header_value = headers_.get(Headers::get().EnvoyOriginalPathUnmergedSlashes);
+    // if we sanitized the path verify the original path with double slash header is set and correct
+    if (path_value != sanitized_path_value) {
+      // check the header value isn't null
+      EXPECT_TRUE(original_header_value);
+
+      // verify we match the original path (minus query)
+      const absl::string_view::size_type query_start = path_value.find('?');
+      const absl::string_view path = path_value.substr(0, query_start);
+      EXPECT_EQ(path, original_header_value->value().getStringView());
+    } else {
+      // else make sure it is not set
+      EXPECT_EQ(nullptr, original_header_value);
+    }
+
     return std::string(sanitized_path_value);
   };
   EXPECT_EQ("", mergeSlashes(""));                        // empty
