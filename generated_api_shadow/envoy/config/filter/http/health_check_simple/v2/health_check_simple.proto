@@ -1,0 +1,7 @@
+syntax = "proto3";
+
+package envoy.config.filter.http.health_check_simple.v2;
+
+message HealthCheckSimple {
+  string path = 1;
+}

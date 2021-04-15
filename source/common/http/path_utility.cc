@@ -3,6 +3,7 @@
 #include "common/chromium_url/url_canon.h"
 #include "common/chromium_url/url_canon_stdstring.h"
 #include "common/common/logger.h"
+#include "common/http/headers.h"
 
 #include "absl/strings/str_join.h"
 #include "absl/strings/str_split.h"
@@ -66,6 +67,7 @@ void PathUtil::mergeSlashes(RequestHeaderMap& headers) {
   }
   const absl::string_view path_prefix = absl::StartsWith(path, "/") ? "/" : absl::string_view();
   const absl::string_view path_suffix = absl::EndsWith(path, "/") ? "/" : absl::string_view();
+  headers.setReferenceKey(Headers::get().EnvoyOriginalPathUnmergedSlashes, path);
   headers.setPath(absl::StrCat(path_prefix,
                                absl::StrJoin(absl::StrSplit(path, '/', absl::SkipEmpty()), "/"),
                                path_suffix, query));

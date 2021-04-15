@@ -394,7 +394,7 @@ HttpConnectionManagerConfig::HttpConnectionManagerConfig(
     // TODO: Random sampling historically was an integer and default to out of 10,000. We should
     // deprecate that and move to a straight fractional percent config.
     uint64_t random_sampling_numerator{PROTOBUF_PERCENT_TO_ROUNDED_INTEGER_OR_DEFAULT(
-        tracing_config, random_sampling, 10000, 10000)};
+        tracing_config, random_sampling, 10000, 0)};
     random_sampling.set_numerator(random_sampling_numerator);
     random_sampling.set_denominator(envoy::type::v3::FractionalPercent::TEN_THOUSAND);
     envoy::type::v3::FractionalPercent overall_sampling;

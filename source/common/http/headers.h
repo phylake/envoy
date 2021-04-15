@@ -125,7 +125,7 @@ public:
   const LowerCaseString Age{"age"};
   const LowerCaseString ProxyAuthenticate{"proxy-authenticate"};
   const LowerCaseString ProxyAuthorization{"proxy-authorization"};
-  const LowerCaseString ClientTraceId{"x-client-trace-id"};
+  const LowerCaseString ClientTraceId{"uber-trace-id"};
   const LowerCaseString Connection{"connection"};
   const LowerCaseString ContentLength{"content-length"};
   const LowerCaseString ContentRange{"content-range"};
@@ -156,6 +156,7 @@ public:
   const LowerCaseString EnvoyOriginalDstHost{absl::StrCat(prefix(), "-original-dst-host")};
   const LowerCaseString EnvoyOriginalMethod{absl::StrCat(prefix(), "-original-method")};
   const LowerCaseString EnvoyOriginalPath{absl::StrCat(prefix(), "-original-path")};
+  const LowerCaseString EnvoyOriginalPathUnmergedSlashes{absl::StrCat(prefix(), "-original-path-unmerged-slashes")};
   const LowerCaseString EnvoyOverloaded{absl::StrCat(prefix(), "-overloaded")};
   const LowerCaseString EnvoyRateLimited{absl::StrCat(prefix(), "-ratelimited")};
   const LowerCaseString EnvoyRetryOn{absl::StrCat(prefix(), "-retry-on")};
@@ -164,6 +165,7 @@ public:
       absl::StrCat(prefix(), "-retriable-status-codes")};
   const LowerCaseString EnvoyRetriableHeaderNames{
       absl::StrCat(prefix(), "-retriable-header-names")};
+  const LowerCaseString EnvoyTraceDecision{absl::StrCat(prefix(), "-trace-decision")};
   const LowerCaseString EnvoyUpstreamAltStatName{absl::StrCat(prefix(), "-upstream-alt-stat-name")};
   const LowerCaseString EnvoyUpstreamCanary{absl::StrCat(prefix(), "-upstream-canary")};
   const LowerCaseString EnvoyUpstreamHostAddress{absl::StrCat(prefix(), "-upstream-host-address")};
