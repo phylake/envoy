@@ -144,7 +144,7 @@ bool filterParam(Http::Utility::QueryParams params, Buffer::Instance& response,
   if (p != params.end()) {
     const std::string& pattern = p->second;
     try {
-      regex = std::regex(pattern);
+      regex = std::regex(pattern, std::regex_constants::ECMAScript);
     } catch (std::regex_error& error) {
       // Include the offending pattern in the log, but not the error message.
       response.add(fmt::format("Invalid regex: \"{}\"\n", error.what()));
@@ -892,7 +892,7 @@ Http::Code AdminImpl::handlerReady(absl::string_view, Http::ResponseHeaderMap&,
 Http::Code AdminImpl::handlerStats(absl::string_view url, Http::ResponseHeaderMap& response_headers,
                                    Buffer::Instance& response, AdminStream& admin_stream) {
   Http::Code rc = Http::Code::OK;
-  const Http::Utility::QueryParams params = Http::Utility::parseQueryString(url);
+  const Http::Utility::QueryParams params = Http::Utility::parseAndDecodeQueryString(url);
 
   const bool used_only = params.find("usedonly") != params.end();
   absl::optional<std::regex> regex;
@@ -949,7 +949,7 @@ Http::Code AdminImpl::handlerStats(absl::string_view url, Http::ResponseHeaderMa
 Http::Code AdminImpl::handlerPrometheusStats(absl::string_view path_and_query,
                                              Http::ResponseHeaderMap&, Buffer::Instance& response,
                                              AdminStream&) {
-  const Http::Utility::QueryParams params = Http::Utility::parseQueryString(path_and_query);
+  const Http::Utility::QueryParams params = Http::Utility::parseAndDecodeQueryString(path_and_query);
   const bool used_only = params.find("usedonly") != params.end();
   absl::optional<std::regex> regex;
   if (!filterParam(params, response, regex)) {

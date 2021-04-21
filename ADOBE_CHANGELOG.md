@@ -16,6 +16,10 @@ v{E major}.{E minor}.{E fix}-{A major}.{A minor}.{A fix}-adobe
 
 # Log
 
+## v1.14.4-2.10.0-adobe
+
+- backport https://github.com/envoyproxy/envoy/pull/11795
+
 ## v1.14.7-2.9.0-adobe
 
 - upgraded envoy
