@@ -16,6 +16,10 @@ v{E major}.{E minor}.{E fix}-{A major}.{A minor}.{A fix}-adobe
 
 # Log
 
+## v1.16.3-2.12.0-adobe
+
+- ECMAScript regex for stats filter
+
 ## v1.16.3-2.11.0-adobe
 
 - upgraded envoy

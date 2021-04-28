@@ -45,7 +45,7 @@ bool filterParam(Http::Utility::QueryParams params, Buffer::Instance& response,
   if (p != params.end()) {
     const std::string& pattern = p->second;
     try {
-      regex = std::regex(pattern);
+      regex = std::regex(pattern, std::regex_constants::ECMAScript);
     } catch (std::regex_error& error) {
       // Include the offending pattern in the log, but not the error message.
       response.add(fmt::format("Invalid regex: \"{}\"\n", error.what()));
