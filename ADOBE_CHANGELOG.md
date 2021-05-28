@@ -16,6 +16,10 @@ v{E major}.{E minor}.{E fix}-{A major}.{A minor}.{A fix}-adobe
 
 # Log
 
+## v1.16.3-2.13.0-adobe
+
+- update open tracing and bundle jaeger that supports W3C propagation format
+
 ## v1.16.3-2.12.0-adobe
 
 - ECMAScript regex for stats filter

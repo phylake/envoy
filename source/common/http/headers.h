@@ -125,7 +125,7 @@ public:
   const LowerCaseString Age{"age"};
   const LowerCaseString ProxyAuthenticate{"proxy-authenticate"};
   const LowerCaseString ProxyAuthorization{"proxy-authorization"};
-  const LowerCaseString ClientTraceId{"uber-trace-id"};
+  const LowerCaseString ClientTraceId{"traceparent"};
   const LowerCaseString Connection{"connection"};
   const LowerCaseString ContentLength{"content-length"};
   const LowerCaseString ContentRange{"content-range"};

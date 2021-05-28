@@ -14,7 +14,6 @@ cc_library(
     deps = [
         "@com_github_datadog_dd_opentracing_cpp//:dd_opentracing_cpp",
         "@com_google_googletest//:gtest",
-        "@com_lightstep_tracer_cpp//:lightstep_tracer",
         "@io_opentracing_cpp//:opentracing",
     ],
 )

@@ -9,7 +9,6 @@ PPC_SKIP_TARGETS = ["envoy.filters.http.lua"]
 
 WINDOWS_SKIP_TARGETS = [
     "envoy.tracers.dynamic_ot",
-    "envoy.tracers.lightstep",
     "envoy.tracers.datadog",
     "envoy.tracers.opencensus",
     "envoy.watchdog.abort_action",
@@ -216,7 +215,6 @@ def envoy_dependencies(skip_targets = []):
     _com_googlesource_chromium_v8()
     _com_googlesource_quiche()
     _com_googlesource_googleurl()
-    _com_lightstep_tracer_cpp()
     _io_opentracing_cpp()
     _net_zlib()
     _com_github_zlib_ng_zlib_ng()
@@ -455,20 +453,11 @@ def _com_github_nghttp2_nghttp2():
 def _io_opentracing_cpp():
     _repository_impl(
         name = "io_opentracing_cpp",
-        patch_args = ["-p1"],
         # Workaround for LSAN false positive in https://github.com/envoyproxy/envoy/issues/7647
-        patches = ["@envoy//bazel:io_opentracing_cpp.patch"],
     )
     native.bind(
         name = "opentracing",
         actual = "@io_opentracing_cpp//:opentracing",
-    )
-
-def _com_lightstep_tracer_cpp():
-    _repository_impl("com_lightstep_tracer_cpp")
-    native.bind(
-        name = "lightstep",
-        actual = "@com_lightstep_tracer_cpp//:manual_tracer_lib",
     )
 
 def _com_github_datadog_dd_opentracing_cpp():

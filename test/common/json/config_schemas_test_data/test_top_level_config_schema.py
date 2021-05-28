@@ -16,18 +16,7 @@ TOP_LEVEL_CONFIG_BLOB = {
     "watchdog_miss_timeout_ms": 100,
     "watchdog_megamiss_timeout_ms": 200,
     "watchdog_kill_timeout_ms": 300,
-    "watchdog_multikill_timeout_ms": 400,
-    "tracing": {
-        "http": {
-            "driver": {
-                "type": "lightstep",
-                "config": {
-                    "access_token_file": "/etc/envoy/envoy.cfg",
-                    "collector_cluster": "foo"
-                }
-            }
-        }
-    }
+    "watchdog_multikill_timeout_ms": 400
 }
 
 

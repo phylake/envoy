@@ -94,7 +94,7 @@ void OpenTracingSpan::setOperation(absl::string_view operation) {
 
 void OpenTracingSpan::setTag(absl::string_view name, absl::string_view value) {
   span_->SetTag({name.data(), name.length()},
-                opentracing::v2::string_view{value.data(), value.length()});
+                opentracing::v3::string_view{value.data(), value.length()});
 }
 
 void OpenTracingSpan::log(SystemTime timestamp, const std::string& event) {
