@@ -91,6 +91,7 @@ public:
   const LowerCaseString EnvoyNotForwarded{absl::StrCat(prefix(), "-not-forwarded")};
   const LowerCaseString EnvoyOriginalDstHost{absl::StrCat(prefix(), "-original-dst-host")};
   const LowerCaseString EnvoyOriginalPath{absl::StrCat(prefix(), "-original-path")};
+  const LowerCaseString EnvoyOriginalPathUnmergedSlashes{absl::StrCat(prefix(), "-original-path-unmerged-slashes")};
   const LowerCaseString EnvoyOverloaded{absl::StrCat(prefix(), "-overloaded")};
   const LowerCaseString EnvoyRateLimited{absl::StrCat(prefix(), "-ratelimited")};
   const LowerCaseString EnvoyRetryOn{absl::StrCat(prefix(), "-retry-on")};
