@@ -16,7 +16,7 @@ v{E major}.{E minor}.{E fix}-{A major}.{A minor}.{A fix}-adobe
 
 # Log
 
-## v1.14.7.2.10.1-adobe
+## v1.14.7-2.10.1-adobe
 
 - back port https://github.com/adobe-platform/envoy/pull/1
   which should have been in 1.14-adobe since it was merged
